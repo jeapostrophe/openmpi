@@ -1,10 +1,10 @@
 #lang racket
-(require "ffi/mpi.rkt"
-         "ffi/constants.rkt"
-         "ffi/types.rkt")
+(require (file "ffi/mpi.rkt")
+         (file "ffi/constants.rkt")
+         (file "ffi/types.rkt"))
 
 (provide 
  (all-from-out
-  "ffi/mpi.rkt"
-  "ffi/constants.rkt"
-  "ffi/types.rkt"))
+  (file "ffi/mpi.rkt")
+  (file "ffi/constants.rkt")
+  (file "ffi/types.rkt")))

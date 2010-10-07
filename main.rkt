@@ -1,4 +1,4 @@
 #lang racket
-(require "ffi.rkt")
+(require (file "ffi.rkt"))
 
-(provide (all-from-out "ffi.rkt"))
+(provide (all-from-out (file "ffi.rkt")))

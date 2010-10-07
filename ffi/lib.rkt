@@ -1,21 +1,38 @@
-#lang racket
-(require ffi/unsafe)
+#lang at-exp racket
+(require ffi/unsafe
+         (prefix-in c: racket/contract)
+         scribble/srcdoc)
+(require/doc racket/base
+             scribble/manual)
 
 (define libmpi (ffi-lib "libmpi"))
 
-; XXX Add docs + contracts
-(define-syntax-rule (define-mpi* name fname type)
+(define-syntax-rule (define-mpi* (name fname)
+                      type 
+                      ([arg-name contract-e] ... return-contract)
+                      desc)
   (begin
     (define name 
       (get-ffi-obj 'fname libmpi type))
-    (provide name)))
-(define-syntax-rule (define-mpi name type)
-  (define-mpi* name name type))
+    (provide/doc
+     [proc-doc/names
+      name (c:-> contract-e ... return-contract)
+      (arg-name ...) desc])))
+(define-syntax-rule (define-mpi name 
+                      type
+                      ([arg-name contract-e] ... return-contract))
+  (define-mpi* (name name)
+    type
+    ([arg-name contract-e] ... return-contract)
+    @{}))
 
+; XXX Add types
 (define-syntax-rule (define-mpi-ref constant-id mpi-id)
   (begin (define mpi-id (ffi-obj-ref 'mpi-id libmpi))
          (define constant-id mpi-id)
-         (provide constant-id)))
+         (provide/doc
+          [thing-doc constant-id cpointer?
+                     @{An OpenMPI constant}])))
 
 (provide define-mpi
          define-mpi*

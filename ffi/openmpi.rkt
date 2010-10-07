@@ -1,6 +1,6 @@
 #lang racket
 (require ffi/unsafe
-         "lib.rkt")
+         (file "lib.rkt"))
 
 ; XXX Add the types
 (define-mpi-ref MPI_COMM_WORLD ompi_mpi_comm_world)
@@ -13,4 +13,7 @@
    [_count _int]
    [_cancelled _int]))
 
-(provide (all-defined-out))
+; XXX make cstruct-out
+(provide _MPI_Status
+         MPI_Status?
+         _MPI_Status-pointer)
