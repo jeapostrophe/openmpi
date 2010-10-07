@@ -1,12 +1,12 @@
 #lang racket
 (require ffi/unsafe)
 
-; XXX Use cpointers
 (define _MPI_Comm _pointer)
 (define _MPI_Datatype _pointer)
 (define _MPI_Comm? cpointer?)
 (define _MPI_Datatype? cpointer?)
 
+; XXX This should be part of ffi/unsafe
 (define _int? exact-integer?)
 
 (define-cstruct _MPI_Status

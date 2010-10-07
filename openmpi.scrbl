@@ -20,8 +20,10 @@ This documentation does not describe meaning of API calls; it only describes the
 
 XXX Get all the symbols in here somewhere
 
-@section[#:tag "MPI"]{MPI API Reference}
+@section[#:tag "constants"]{Constants}
+@defmodule/this-package[ffi/constants]
+@include-extracted[(file "ffi/constants.rkt")]
 
+@section[#:tag "mpi"]{API}
 @defmodule/this-package[ffi/mpi]
-
 @include-extracted[(file "ffi/mpi.rkt")]

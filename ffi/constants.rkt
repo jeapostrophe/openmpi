@@ -1,18 +1,37 @@
 #lang at-exp racket
-(require ffi/unsafe
+(require (except-in ffi/unsafe ->)
+         scribble/srcdoc
          (file "lib.rkt"))
+(require/doc racket/base
+             (for-label (except-in racket/contract ->)
+                        ffi/unsafe)
+             scribble/manual)
 
-; XXX Get them all
-(define MPI_MAX_PROCESSOR_NAME 256)
-
-(provide MPI_MAX_PROCESSOR_NAME)
-
-; XXX Add the types
-(define-mpi-ref MPI_COMM_WORLD ompi_mpi_comm_world)
-(define-mpi-ref MPI_CHAR ompi_mpi_char)
-
+(require (for-syntax unstable/syntax
+                     racket/list
+                     racket/match
+                     (file "parsec.rkt")))
 (define-syntax (parse-c-header stx)
-  #'(void))
+  (syntax-case stx ()
+    [(_ str ...)
+     (quasisyntax/loc stx
+       (begin #,@(map (match-lambda
+                        [(def id (? number? n))
+                         #`(define-mpi-constant #,(datum->syntax stx id) #,n number?)]
+                        [(def id (expr:ptr rank type 0))
+                         #`(define-mpi-constant #,(datum->syntax stx id) #f cpointer?)]
+                        [(def id (expr:ptr rank type 1))
+                         ; XXX Assumes 32bits
+                         #`(define-mpi-constant #,(datum->syntax stx id) (cast 1 _uint32 _pointer) cpointer?)]
+                        [(def id (expr:alias other-id))
+                         #`(define-mpi-constant #,(datum->syntax stx id) #,(datum->syntax stx other-id) number?)]
+                        [(enum ids)
+                         #`(begin #,@(for/list ([id (in-list ids)]
+                                                [i (in-naturals)])
+                                       #`(define-mpi-constant #,(datum->syntax stx id) #,i number?)))]
+                        [(def id (expr:addr sym))
+                         #`(define-mpi-ref #,(datum->syntax stx id) #,sym)])
+                      (apply parse-c-header-strs (syntax-map syntax->datum #'(str ...))))))]))
 
 @parse-c-header{
 /* ompi/include/mpi.h.  Generated from mpi.h.in by configure.  */
@@ -139,7 +158,7 @@ enum {
     IMPI_CLIENT_COLOR,
     IMPI_HOST_SIZE,
     IMPI_HOST_COLOR
-};
+}
 
 /*
  * Error classes and codes
@@ -214,7 +233,7 @@ enum {
   MPI_CONGRUENT,
   MPI_SIMILAR,
   MPI_UNEQUAL
-};
+}
 
 /*
  * MPI_Init_thread constants
@@ -225,7 +244,7 @@ enum {
   MPI_THREAD_FUNNELED,
   MPI_THREAD_SERIALIZED,
   MPI_THREAD_MULTIPLE
-};
+}
 
 /*
  * Datatype combiners.
@@ -250,7 +269,7 @@ enum {
   MPI_COMBINER_F90_COMPLEX,
   MPI_COMBINER_F90_INTEGER,
   MPI_COMBINER_RESIZED
-};
+}
 
 /*
  * NULL handles
@@ -266,9 +285,6 @@ enum {
 
 #define MPI_STATUS_IGNORE ((MPI_Status *) 0)
 #define MPI_STATUSES_IGNORE ((MPI_Status *) 0)
-
-OMPI_DECLSPEC extern MPI_Fint *MPI_F_STATUS_IGNORE;
-OMPI_DECLSPEC extern MPI_Fint *MPI_F_STATUSES_IGNORE;
 
 /*
  * MPI predefined handles

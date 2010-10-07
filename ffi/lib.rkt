@@ -26,14 +26,19 @@
     ([arg-name contract-e] ... return-contract)
     @{}))
 
-; XXX Add types
 (define-syntax-rule (define-mpi-ref constant-id mpi-id)
-  (begin (define mpi-id (ffi-obj-ref 'mpi-id libmpi))
-         (define constant-id mpi-id)
+  (begin (define constant-id (ffi-obj-ref 'mpi-id libmpi))
          (provide/doc
           [thing-doc constant-id cpointer?
-                     @{An OpenMPI constant}])))
+                     @{}])))
+
+(define-syntax-rule (define-mpi-constant constant-id value ctc)
+  (begin (define constant-id value)
+         (provide/doc
+          [thing-doc constant-id ctc
+                     @{}])))
 
 (provide define-mpi
          define-mpi*
-         define-mpi-ref)
+         define-mpi-ref
+         define-mpi-constant)
