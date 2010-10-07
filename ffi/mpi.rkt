@@ -4,6 +4,7 @@
          "types.rkt"
          "constants.rkt")
 
+; XXX Can we do better errors?
 (define (handle-errcode fun errcode)
   (unless (zero? errcode)
     (error fun "Non-zero return errcode: ~e" errcode)))

@@ -2,6 +2,7 @@
 (require ffi/unsafe
          "lib.rkt")
 
+; XXX Add the types
 (define-mpi-ref MPI_COMM_WORLD ompi_mpi_comm_world)
 (define-mpi-ref MPI_CHAR ompi_mpi_char)
 

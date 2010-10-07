@@ -3,6 +3,7 @@
 
 (define libmpi (ffi-lib "libmpi"))
 
+; XXX Add docs + contracts
 (define-syntax-rule (define-mpi* name fname type)
   (begin
     (define name 
