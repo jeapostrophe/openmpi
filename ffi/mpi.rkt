@@ -6,6 +6,7 @@
          (file "constants.rkt")
          scribble/srcdoc)
 (require/doc racket/base
+             (for-label (except-in racket/contract ->))
              scribble/manual)
 
 ; XXX Can we do better errors?

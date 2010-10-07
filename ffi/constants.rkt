@@ -1,11 +1,15 @@
 #lang at-exp racket
-(require (file "openmpi.rkt"))
+(require ffi/unsafe
+         (file "lib.rkt"))
 
 ; XXX Get them all
 (define MPI_MAX_PROCESSOR_NAME 256)
 
-(provide (all-defined-out)
-         (all-from-out (file "openmpi.rkt")))
+(provide MPI_MAX_PROCESSOR_NAME)
+
+; XXX Add the types
+(define-mpi-ref MPI_COMM_WORLD ompi_mpi_comm_world)
+(define-mpi-ref MPI_CHAR ompi_mpi_char)
 
 (define-syntax (parse-c-header stx)
   #'(void))
