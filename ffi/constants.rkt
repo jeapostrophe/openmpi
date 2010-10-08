@@ -4,7 +4,7 @@
          (file "lib.rkt"))
 (require/doc racket/base
              (for-label (except-in racket/contract ->)
-                        ffi/unsafe)
+                        (except-in ffi/unsafe ->))
              scribble/manual)
 
 (require (for-syntax unstable/syntax
