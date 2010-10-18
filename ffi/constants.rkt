@@ -21,8 +21,7 @@
                         [(def id (expr:ptr rank type 0))
                          #`(define-mpi-constant #,(datum->syntax stx id) #f cpointer?)]
                         [(def id (expr:ptr rank type 1))
-                         ; XXX Assumes 32bits
-                         #`(define-mpi-constant #,(datum->syntax stx id) (cast 1 _uint32 _pointer) cpointer?)]
+                         #`(define-mpi-constant #,(datum->syntax stx id) (cast 1 _intptr _pointer) cpointer?)]
                         [(def id (expr:alias other-id))
                          #`(define-mpi-constant #,(datum->syntax stx id) #,(datum->syntax stx other-id) number?)]
                         [(enum ids)
