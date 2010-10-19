@@ -14,6 +14,51 @@
   (unless (zero? errcode)
     (error fun "Non-zero return errcode: ~e" errcode)))
 
+(define-mpi MPI_Abort
+  (_fun _MPI_Comm
+        _int
+        -> [errcode : _int]
+        -> (handle-errcode 'MPI_Abort errcode))
+  ([comm _MPI_Comm?]
+   [errcode _int?]
+   void))
+
+; XXX MPI_Accumulate
+
+(define-mpi MPI_Add_error_class
+  (_fun [errclass : (_ptr o _int)]
+        -> [errcode : _int]
+        -> (begin (handle-errcode 'MPI_Add_error_class errcode)
+                  errclass))
+  (_int?))
+(define-mpi MPI_Add_error_code
+  (_fun _int
+        [newerrcode : (_ptr o _int)]
+        -> [errcode : _int]
+        -> (begin (handle-errcode 'MPI_Add_error_code errcode)
+                  newerrcode))
+  ([errorclass _int?]
+   _int?))
+(define-mpi MPI_Add_error_string
+  (_fun _int
+        _string
+        -> [errcode : _int]
+        -> (handle-errcode 'MPI_Add_error_string errcode))
+  ([errorclass _int?]
+   [string string?]
+   void))
+
+; XXX MPI_Allgather
+; XXX MPI_Allgatherv
+; XXX MPI_Alloc_mem
+; XXX MPI_Allreduce
+; XXX MPI_Alltoall
+; XXX MPI_Alltoallv
+; XXX MPI_Alltoallw
+
+; XXX Current MPI_Attr_get
+
+;; XXX
 (define-mpi MPI_Init
   (_fun (v) ::
         [argc : _int = (vector-length v)]
@@ -44,14 +89,14 @@
                   rank))
   ([comm _MPI_Comm?]
    _int?))
-; XXX Return string
+
 (define-mpi MPI_Get_processor_name
   (_fun [name : (_bytes o MPI_MAX_PROCESSOR_NAME)]
         [actual-len : (_ptr o _int)]
         -> [errcode : _int]
         -> (begin (handle-errcode 'MPI_Get_processor_name errcode)
-                  (subbytes name 0 actual-len)))
-  (bytes?))
+                  (bytes->string/utf-8 (subbytes name 0 actual-len))))
+  (string?))
 
 (define-mpi MPI_Get_count
   (_fun [status : _MPI_Status-pointer]
