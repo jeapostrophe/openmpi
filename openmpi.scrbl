@@ -18,8 +18,6 @@ This documentation does not describe meaning of API calls; it only describes the
 
 @local-table-of-contents[]
 
-XXX Get all the symbols in here somewhere
-
 @section[#:tag "constants"]{Constants}
 @defmodule/this-package[ffi/constants]
 @include-extracted[(file "ffi/constants.rkt")]
