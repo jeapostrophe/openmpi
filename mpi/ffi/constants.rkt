@@ -1,4 +1,4 @@
-#lang at-exp racket
+#lang at-exp racket/base
 (require (except-in ffi/unsafe ->)
          scribble/srcdoc
          (file "lib.rkt"))
@@ -7,7 +7,8 @@
                         (except-in ffi/unsafe ->))
              scribble/manual)
 
-(require (for-syntax unstable/syntax
+(require (for-syntax racket/base
+                     unstable/syntax
                      racket/list
                      racket/match
                      (file "parsec.rkt")))

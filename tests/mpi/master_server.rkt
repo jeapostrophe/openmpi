@@ -1,5 +1,5 @@
-#lang racket
-(require "../main.rkt")
+#lang racket/base
+(require mpi)
 
 (MPI_Init (current-command-line-arguments))
 

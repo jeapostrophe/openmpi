@@ -1,5 +1,6 @@
-#lang at-exp racket
-(require parser-tools/yacc
+#lang at-exp racket/base
+(require racket/list
+         parser-tools/yacc
          parser-tools/lex
          (prefix-in : parser-tools/lex-sre))
 

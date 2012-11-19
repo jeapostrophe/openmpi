@@ -1,4 +1,4 @@
-#lang at-exp racket
+#lang at-exp racket/base
 (require ffi/unsafe
          (prefix-in c: racket/contract)
          scribble/srcdoc)
