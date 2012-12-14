@@ -1,7 +1,7 @@
 #lang at-exp racket/base
 (require (except-in ffi/unsafe ->)
          scribble/srcdoc
-         (file "lib.rkt"))
+         "lib.rkt")
 (require/doc racket/base
              (for-label (except-in racket/contract ->)
                         (except-in ffi/unsafe ->))
@@ -11,7 +11,7 @@
                      unstable/syntax
                      racket/list
                      racket/match
-                     (file "parsec.rkt")))
+                     "parsec.rkt"))
 (define-syntax (parse-c-header stx)
   (syntax-case stx ()
     [(_ str ...)

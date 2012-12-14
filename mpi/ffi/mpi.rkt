@@ -1,9 +1,9 @@
 #lang at-exp racket/base
 (require ffi/unsafe
          (except-in racket/contract ->)
-         (file "lib.rkt")
-         (file "types.rkt")
-         (file "constants.rkt")
+         "lib.rkt"
+         "types.rkt"
+         "constants.rkt"
          scribble/srcdoc)
 (require/doc racket/base
              (for-label (except-in racket/contract ->))

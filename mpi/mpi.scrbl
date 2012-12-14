@@ -19,8 +19,8 @@ This documentation does not describe meaning of API calls; it only describes the
 
 @section[#:tag "constants"]{Constants}
 @defmodule[mpi/ffi/constants]
-@include-extracted[(file "ffi/constants.rkt")]
+@include-extracted["ffi/constants.rkt"]
 
 @section[#:tag "mpi"]{API}
 @defmodule[mpi/ffi/mpi]
-@include-extracted[(file "ffi/mpi.rkt")]
+@include-extracted["ffi/mpi.rkt"]

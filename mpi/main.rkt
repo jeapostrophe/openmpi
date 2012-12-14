@@ -1,3 +1,3 @@
 #lang racket/base
-(require (file "ffi.rkt"))
-(provide (all-from-out (file "ffi.rkt")))
+(require "ffi.rkt")
+(provide (all-from-out "ffi.rkt"))
