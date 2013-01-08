@@ -3,6 +3,7 @@
           scribble/basic
           scribble/extract
           (for-label (except-in ffi/unsafe ->)
+                     (only-in racket/contract contract?)
                      racket/base
                      mpi))
 
@@ -21,6 +22,23 @@ This documentation does not describe meaning of API calls; it only describes the
 @defmodule[mpi/ffi/constants]
 @include-extracted["ffi/constants.rkt"]
 
+@section[#:tag "types"]{Basic Types}
+@defmodule[mpi/ffi/types]
+@defthing[_int? contract?]{Identical to @racket[exact-integer?].}
+@defthing[_MPI_Datatype? contract?]{Identical to @racket[cpointer?].}
+@defthing[_MPI_Comm? contract?]{Identical to @racket[cpointer?].}
+
+@defstruct*[MPI_Status ([MPI_SOURCE _int?]
+                       [MPI_TAG _int?]
+                       [MPI_ERROR _int?]
+                       [_count _int?]
+                       [_cancelled _int?])]{
+ A structure representing MPI statuses.                                            
+}
+
+@defthing[MPI_Status? contract?]{Identical to @racket[cpointer?].}
+
 @section[#:tag "mpi"]{API}
 @defmodule[mpi/ffi/mpi]
+
 @include-extracted["ffi/mpi.rkt"]
