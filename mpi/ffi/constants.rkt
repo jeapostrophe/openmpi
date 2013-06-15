@@ -9,6 +9,7 @@
 
 (require (for-syntax racket/base
                      unstable/syntax
+                     syntax/stx
                      racket/list
                      racket/match
                      "parsec.rkt"))
@@ -31,7 +32,7 @@
                                        #`(define-mpi-constant #,(datum->syntax stx id) #,i number?)))]
                         [(def id (expr:addr sym))
                          #`(define-mpi-ref #,(datum->syntax stx id) #,sym)])
-                      (apply parse-c-header-strs (syntax-map syntax->datum #'(str ...))))))]))
+                      (apply parse-c-header-strs (stx-map syntax->datum #'(str ...))))))]))
 
 @parse-c-header{
 /* ompi/include/mpi.h.  Generated from mpi.h.in by configure.  */
