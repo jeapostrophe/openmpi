@@ -8,7 +8,6 @@
              scribble/manual)
 
 (require (for-syntax racket/base
-                     unstable/syntax
                      syntax/stx
                      racket/list
                      racket/match
