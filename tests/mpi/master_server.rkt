@@ -1,6 +1,7 @@
 #lang racket/base
 (require mpi)
 
+(eprintf "Arguments: ~v\n" (current-command-line-arguments))
 (MPI_Init (current-command-line-arguments))
 
 (define numprocs (MPI_Comm_size MPI_COMM_WORLD))
